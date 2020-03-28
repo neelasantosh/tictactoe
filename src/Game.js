@@ -2,6 +2,7 @@ import React from 'react';
 import Board from './Board';
 
 function calculateWinner(squares) {
+  console.log("squares",squares)
     const lines = [
       [0, 1, 2],
       [3, 4, 5],
@@ -16,6 +17,9 @@ function calculateWinner(squares) {
       const [a, b, c] = lines[i];
       if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
         return squares[a];
+      }
+      else if(!squares.includes(null)){
+        return 'draw';
       }
     }
     return null;
@@ -78,12 +82,14 @@ export default class Game extends React.Component {
       });
   
       let status;
-      if (winner) {
-        status = "Winner: " + winner;
+      if(winner && winner !== 'draw'){
+          status = 'Winner: ' + winner;
+      } else if (winner && winner === 'draw'){
+          status = "It's a " + winner;
       } else {
-        status = "Next player: " + (this.state.xIsNext ? "X" : "O");
+          status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
       }
-  
+      console.log("xIsNext",this.state.xIsNext)
       return (
         <div className="game">
           <div className="game-board">
